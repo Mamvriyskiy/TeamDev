@@ -1,11 +1,11 @@
 package handler
 
 import (
-	"github.com/Mamvriyskiy/database_course/main/logger"
-	"github.com/Mamvriyskiy/database_course/main/pkg"
+	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
-func (h *Handler) SignUp(c *gin.Context) {
-	
+func (h *Handler) RegisterUser(c *gin.Context) {
+	fmt.Println("1")
+	h.services.IUser.RegisterUser("daf")
 }

@@ -1,16 +1,8 @@
+package service
 
 import (
-	"crypto/sha256"
-	"encoding/hex"
-	"time"
-	"errors"
 	"fmt"
-	"net/smtp"
-
-	"github.com/Mamvriyskiy/database_course/main/logger"
-	pkg "github.com/Mamvriyskiy/database_course/main/pkg"
-	"github.com/Mamvriyskiy/database_course/main/pkg/repository"
-	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/Mamvriyskiy/TeamDev/pkg/repository"
 )
 
 const (
@@ -24,4 +16,11 @@ type UserService struct {
 
 func NewUserService(repo repository.IUserRepo) *UserService {
 	return &UserService{repo: repo}
+}
+
+
+func (r *UserService) RegisterUser(user string) (id string, err error) {
+	fmt.Println("2")
+	r.repo.RegisterUser("adfds")
+	return id, err
 }

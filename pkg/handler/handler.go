@@ -2,7 +2,7 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/swaggo/files"
+	"github.com/Mamvriyskiy/TeamDev/pkg/service"
 )
 
 const signingKey = "jaskljfkdfndnznmckmdkaf3124kfdlsf"
@@ -19,7 +19,7 @@ func (h *Handler) InitRouters() *gin.Engine {
 	router := gin.New()
 	
 	auth := router.Group("/auth")
-	auth.POST("/register", h.SignUp)
+	auth.POST("/register", h.RegisterUser)
 
 	
 

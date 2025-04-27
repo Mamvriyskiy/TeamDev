@@ -3,10 +3,8 @@ package repository
 import (
 	"fmt"
 
-	"github.com/Mamvriyskiy/database_course/main/logger"
-	pkg "github.com/Mamvriyskiy/database_course/main/pkg"
 	"github.com/jmoiron/sqlx"
-	"github.com/google/uuid"
+	// "github.com/Mamvriyskiy/TeamDev/pkg"
 )
 
 type UserPostgres struct {
@@ -17,7 +15,7 @@ func NewUserPostgres(db *sqlx.DB) *UserPostgres {
 	return &UserPostgres{db: db}
 }
 
-func (r *UserPostgres) RegisterUser(user pkg.UserService) (string, error) {
+func (r *UserPostgres) RegisterUser(user string) (string, error) {
 	fmt.Println("uraaaaaaa")
 
 	return "", nil

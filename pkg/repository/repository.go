@@ -1,12 +1,12 @@
 package repository
 
 import (
-	"github.com/Mamvriyskiy/database_course/main/pkg"
 	"github.com/jmoiron/sqlx"
+	// "github.com/Mamvriyskiy/TeamDev/pkg"
 )
 
 type IUserRepo interface {
-	CreateUser(user pkg.UserService) (string, error)
+	RegisterUser(user string) (string, error)
 }
 
 type Repository struct {
@@ -18,3 +18,4 @@ func NewRepository(db *sqlx.DB) *Repository {
 		IUserRepo:          NewUserPostgres(db),
 	}
 }
+

@@ -2,16 +2,14 @@ package main
 
 import (
 	"fmt"
-	"os"
 
-	"github.com/Mamvriyskiy/database_course/main/logger"
-	"github.com/Mamvriyskiy/database_course/main/migrations"
-	"github.com/Mamvriyskiy/database_course/main/pkg"
-	"github.com/Mamvriyskiy/database_course/main/pkg/handler"
-	"github.com/Mamvriyskiy/database_course/main/pkg/repository"
-	"github.com/Mamvriyskiy/database_course/main/pkg/service"
-	"github.com/joho/godotenv"
-	"github.com/spf13/viper"
+	"github.com/Mamvriyskiy/TeamDev/pkg/repository"
+	"github.com/Mamvriyskiy/TeamDev/pkg/service"
+	"github.com/Mamvriyskiy/TeamDev/pkg/handler"
+	"github.com/Mamvriyskiy/TeamDev/pkg"
+	"log"
+	// "github.com/joho/godotenv"
+	// "github.com/spf13/viper"
 )
 
 func main() {
@@ -64,17 +62,17 @@ func main() {
 	services := service.NewServicesPsql(repos)
 	handlers := handler.NewHandler(services)
 
-	logger.Log("Info", "", "The connection to the database is established", nil)
+	// logger.Log("Info", "", "The connection to the database is established", nil)
 
 	srv := new(pkg.Server)
 	if err := srv.Run("8000", handlers.InitRouters()); err != nil {
-		logger.Log("Error", "Run", "Error occurred while running http server:", err, "")
+		log.Fatalf("Error", "Run", "Error occurred while running http server:", err, "")
 		return
 	}
 }
 
-func initConfig() error {
-	viper.AddConfigPath("configs")
-	viper.SetConfigName("config")
-	return viper.ReadInConfig()
-}
+// func initConfig() error {
+// 	viper.AddConfigPath("configs")
+// 	viper.SetConfigName("config")
+// 	return viper.ReadInConfig()
+// }
