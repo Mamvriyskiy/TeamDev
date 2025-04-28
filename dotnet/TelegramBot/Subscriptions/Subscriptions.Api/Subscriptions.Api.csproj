@@ -18,13 +18,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\.dockerignore">
+      <Content Include="..\..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\..\Subscriptions.Domain\Subscriptions.Domain.csproj" />
     </ItemGroup>
 
 </Project>
