@@ -8,7 +8,7 @@ on:
 
 env:
   GO_VERSION: '1.23.2'
-  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }} # Храните ключ в секретах GitHub
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
 jobs:
   build:
@@ -68,11 +68,11 @@ jobs:
 
   deploy:
     name: Deploy to VM
-    needs: [build, fmt, vet, lint]  # Запускать только после успешного завершения других jobs
+    needs: [build, fmt, vet, lint]
     runs-on: ubuntu-latest
     environment:
-      name: Production  # Можно указать окружение
-      url: http://172.20.10.3:8000  # URL вашего приложения
+      name: Production
+      url: http://172.20.10.3:8000 
 
     steps:
       - uses: actions/checkout@v4
@@ -101,4 +101,3 @@ jobs:
         run: ssh -i ~/.ssh/id_rsa vm1@172.20.10.3 "nohup /home/vm1/app > /dev/null 2>&1 &"
 
     if: github.ref == 'refs/heads/main' && github.event_name == 'push' # Запускать только при пуше в main
-    
