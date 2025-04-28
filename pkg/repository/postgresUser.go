@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/Mamvriyskiy/TeamDev/pkg"
 	"github.com/google/uuid" // Для генерации UUID
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq" // Импортируем драйвер PostgreSQL
-	"github.com/Mamvriyskiy/TeamDev/pkg"
 )
 
 type UserPostgres struct {

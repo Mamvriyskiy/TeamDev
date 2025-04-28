@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
+	"log"
+
+	"github.com/Mamvriyskiy/TeamDev/pkg"
+	"github.com/Mamvriyskiy/TeamDev/pkg/handler"
 	"github.com/Mamvriyskiy/TeamDev/pkg/repository"
 	"github.com/Mamvriyskiy/TeamDev/pkg/service"
-	"github.com/Mamvriyskiy/TeamDev/pkg/handler"
-	"github.com/Mamvriyskiy/TeamDev/pkg"
-	"log"
 	// "github.com/joho/godotenv"
 	// "github.com/spf13/viper"
 )

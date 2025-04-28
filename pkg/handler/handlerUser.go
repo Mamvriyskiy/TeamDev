@@ -1,9 +1,10 @@
 package handler
 
 import (
-	"net/http"
-	"log"
 	"fmt"
+	"log"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )

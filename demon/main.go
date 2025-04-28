@@ -1,18 +1,17 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
-	"io"
-	"encoding/json"
-	"bytes"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
 const webhookURL = "https://behalf-mapping-brutal-puzzle.trycloudflare.com/webhook"
-
 
 func main() {
 	bot, err := tgbotapi.NewBotAPI("7533007583:AAG6nsSfkg6K6d1o2VhCxFMi4eXal2pcGA4")
@@ -102,7 +101,7 @@ func handleMessage(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 	defer resp.Body.Close()
 
 	ip, _ := io.ReadAll(resp.Body)
-	log.Println("Ваш IP: " +  string(ip))
+	log.Println("Ваш IP: " + string(ip))
 	bot.Send(tgbotapi.NewMessage(message.Chat.ID, "Ваш IP: "+string(ip)))
 }
 
@@ -128,4 +127,3 @@ func handleMessage(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 // 		log.Println("Ошибка отправки сообщения:", err)
 // 	}
 // }
-

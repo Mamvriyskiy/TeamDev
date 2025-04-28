@@ -2,8 +2,9 @@ package service
 
 import (
 	"fmt"
-	"github.com/Mamvriyskiy/TeamDev/pkg/repository"
+
 	"github.com/Mamvriyskiy/TeamDev/pkg"
+	"github.com/Mamvriyskiy/TeamDev/pkg/repository"
 )
 
 const (
@@ -25,11 +26,10 @@ func (r *UserService) RegisterUser(user int) (id string, err error) {
 	return id, err
 }
 
-
 func (r *UserService) ProfileUser(userID int) (pkg.UserAccount, error) {
 	return r.repo.ProfileUser(userID)
 }
 
-func (r *UserService) AddSocialUser(userID int, url string) (error) {
+func (r *UserService) AddSocialUser(userID int, url string) error {
 	return r.repo.AddSocialUser(userID, url)
 }
