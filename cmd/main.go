@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-
 	"github.com/Mamvriyskiy/TeamDev/pkg/repository"
 	"github.com/Mamvriyskiy/TeamDev/pkg/service"
 	"github.com/Mamvriyskiy/TeamDev/pkg/handler"
@@ -28,37 +27,21 @@ func main() {
 	// }
 	// logger.Log("Info", "", "Load env", nil)
 
-	// db, err := repository.NewPostgresDB(&repository.Config{
-	// 	Host:     viper.GetString("db.host"),
-	// 	Port:     viper.GetString("db.port"),
-	// 	Username: viper.GetString("db.username"),
-	// 	Password: os.Getenv("DB_PASSWORD"),
-	// 	DBName:   viper.GetString("db.dbname"),
-	// 	SSLMode:  viper.GetString("db.sslmode"),
-	// })
+	db, err := repository.NewPostgresDB(&repository.Config{
+		Host:     "localhost",
+		Port:     "5432",
+		Username: "postgres",
+		Password: "postgres",
+		DBName:   "postgres",
+		SSLMode:  "disable",
+	})
 
-	// if err != nil {
-	// 	fmt.Println(err)
-	// 	logger.Log("Error", "initCongig", "Error config DB:", err, "")
-	// 	return
-	// }
+	if err != nil {
+		log.Println("Error", "initCongig", "Error config DB:", err, "")
+		return
+	}
 
-	// err = migrations.MigrationsDataBaseUp(db)
-
-	// if err != nil {
-	// 	fmt.Println(err)
-	// 	logger.Log("Error", "MigrationsDataBaseUp", "Error migrations:", err, "")
-	// 	return
-	// }
-
-	// defer func() {
-	// 	err = migrations.MigrationsDataBaseDown(db)
-	// 	if err != nil {
-	// 		logger.Log("Error", "MigrationsDataBaseDown", "Error migrations:", err, "")
-	// 	}
-	// }()
-
-	repos := repository.NewRepository(nil)
+	repos := repository.NewRepository(db)
 	services := service.NewServicesPsql(repos)
 	handlers := handler.NewHandler(services)
 

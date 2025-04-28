@@ -11,11 +11,11 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
-const webhookURL = "https://acknowledge-chicago-vertical-lcd.trycloudflare.com/webhook"
+const webhookURL = "https://behalf-mapping-brutal-puzzle.trycloudflare.com/webhook"
 
 
 func main() {
-	bot, err := tgbotapi.NewBotAPI("7590824309:AAE_ocKJ0yIMpkqWIAiwBebtuEsfIo8o97A")
+	bot, err := tgbotapi.NewBotAPI("7533007583:AAG6nsSfkg6K6d1o2VhCxFMi4eXal2pcGA4")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -37,16 +37,47 @@ func main() {
 			fmt.Println(update.Message.Text)
 
 			log.Println("Пользователь:", update.Message.From, "Сообщение:", update.Message.Text)
-			switch update.Message.Text {
+			command := update.Message.Text
+			if update.Message.Text[0] == 'h' {
+				command = "url"
+			}
+
+			switch command {
 			case "/start":
 				url := "http://localhost:8000/auth/register"
-				jsonData, err := json.Marshal(update.Message.From)
+				jsonData, err := json.Marshal(update)
 				if err != nil {
 					log.Fatalf("Ошибка при преобразовании данных в JSON: %v", err)
 				}
 
 				// Отправка POST-запроса
 				_, err = http.Post(url, "application/json", bytes.NewBuffer(jsonData))
+				if err != nil {
+					log.Fatalf("Ошибка при отправке запроса: %v", err)
+				}
+			case "/profile":
+				url := "http://localhost:8000/auth/profile"
+				jsonData, err := json.Marshal(update)
+				if err != nil {
+					log.Fatalf("Ошибка при преобразовании данных в JSON: %v", err)
+				}
+
+				// Отправка POST-запроса
+				_, err = http.Post(url, "application/json", bytes.NewBuffer(jsonData))
+				fmt.Println(err)
+				if err != nil {
+					log.Fatalf("Ошибка при отправке запроса: %v", err)
+				}
+			case "url":
+				url := "http://localhost:8000/auth/social"
+				jsonData, err := json.Marshal(update)
+				if err != nil {
+					log.Fatalf("Ошибка при преобразовании данных в JSON: %v", err)
+				}
+
+				// Отправка POST-запроса
+				_, err = http.Post(url, "application/json", bytes.NewBuffer(jsonData))
+				fmt.Println(err)
 				if err != nil {
 					log.Fatalf("Ошибка при отправке запроса: %v", err)
 				}

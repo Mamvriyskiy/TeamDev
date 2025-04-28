@@ -1,7 +1,7 @@
 -- Таблица data.user
 CREATE TABLE user_account (
     id UUID PRIMARY KEY,
-    telegram VARCHAR(32),
+    telegram INT,
     balance INT,
     blocked BOOLEAN  -- Изменено на BOOLEAN
 );
