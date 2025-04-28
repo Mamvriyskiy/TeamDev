@@ -2,10 +2,13 @@ name: Go
 
 on:
   push:
+    branches:
+      - main  # Запускать только при пуше в main
   pull_request:
 
 env:
   GO_VERSION: '1.23.2'
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }} # Храните ключ в секретах GitHub
 
 jobs:
   build:
@@ -39,8 +42,6 @@ jobs:
             echo "The following files are not formatted:"
             echo "$OUTPUT"
             exit 1
-          fi
-
   vet:
     name: Run go vet
     runs-on: ubuntu-latest
@@ -64,3 +65,40 @@ jobs:
       - uses: golangci/golangci-lint-action@v3
         with:
           version: v1.55.2
+
+  deploy:
+    name: Deploy to VM
+    needs: [build, fmt, vet, lint]  # Запускать только после успешного завершения других jobs
+    runs-on: ubuntu-latest
+    environment:
+      name: Production  # Можно указать окружение
+      url: http://172.20.10.3:8000  # URL вашего приложения
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 172.20.10.3 >> ~/.ssh/known_hosts
+
+      - name: Stop old process (if any)
+        run: |
+          ssh -i ~/.ssh/id_rsa vm1@172.20.10.3 'pid=$(lsof -ti :8000) && [ -n "$pid" ] && kill -9 "$pid" || true'
+
+      - name: Remove old files
+        run: ssh -i ~/.ssh/id_rsa vm1@172.20.10.3 'rm -rf /home/vm1/templates'
+
+      - name: Copy new files
+        run: |
+          scp -i ~/.ssh/id_rsa bin/myapp vm1@172.20.10.3:/home/vm1/app
+          scp -i ~/.ssh/id_rsa -r ./templates vm1@172.20.10.3:/home/vm1/templates
+          scp -i ~/.ssh/id_rsa -r ./configs vm1@172.20.10.3:/home/vm1/configs
+
+      - name: Start application
+        run: ssh -i ~/.ssh/id_rsa vm1@172.20.10.3 "nohup /home/vm1/app > /dev/null 2>&1 &"
+
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push' # Запускать только при пуше в main
+    
