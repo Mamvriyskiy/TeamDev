@@ -3,7 +3,6 @@ package repository
 import (
 	"fmt"
 
-	"github.com/Mamvriyskiy/database_course/main/logger"
 	"github.com/jmoiron/sqlx"
 
 	// Импорт драйвера PostgreSQL для его регистрации.

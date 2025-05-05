@@ -69,3 +69,12 @@ func (r *UserPostgres) ProfileUser(userID int) (user pkg.UserAccount, err error)
 
 	return user, nil
 }
+
+func (r *UserPostgres) CreateTasks(userID int, tasks pkg.NewTasks) (err error) {
+	return nil
+}
+
+func (r *UserPostgres) CheckStatusTasks(userID int, nameTasks string) (count, all int, err error) {
+	return 0, 0, nil
+}
+

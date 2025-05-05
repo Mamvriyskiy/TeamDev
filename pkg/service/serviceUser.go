@@ -33,3 +33,15 @@ func (r *UserService) ProfileUser(userID int) (pkg.UserAccount, error) {
 func (r *UserService) AddSocialUser(userID int, url string) error {
 	return r.repo.AddSocialUser(userID, url)
 }
+
+func (r *UserService) CreateTasks(userID int, tasks pkg.NewTasks) (err error) {
+	return nil
+}
+
+func (r *UserService) CheckStatusTasks(userID int, nameTasks string) (count, all int, err error) {
+	return 0, 0, nil
+}
+
+func (r *UserService) CheckSubscribe(userID int) (err error) {
+	return nil
+}

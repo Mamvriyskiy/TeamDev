@@ -10,6 +10,8 @@ type IUserRepo interface {
 	RegisterUser(user int) (string, error)
 	ProfileUser(user int) (pkg.UserAccount, error)
 	AddSocialUser(userID int, url string) error
+	CreateTasks(userID int, tasks pkg.NewTasks) (err error)
+	CheckStatusTasks(userID int, nameTasks string) (count, all int, err error)
 }
 
 type Repository struct {

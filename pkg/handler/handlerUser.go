@@ -46,3 +46,12 @@ func (h *Handler) AddSocialUser(c *gin.Context) {
 
 	fmt.Println(h.services.IUser.AddSocialUser(input.Message.From.ID, input.Message.Text))
 }
+
+func (h *Handler) CreateTasks(c *gin.Context) {
+}
+
+func (h *Handler) CheckStatusTasks(c *gin.Context) {
+}
+
+func (h *Handler) CheckSubscribe(c *gin.Context) {
+}
