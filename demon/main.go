@@ -14,7 +14,7 @@ import (
 const webhookURL = "https://behalf-mapping-brutal-puzzle.trycloudflare.com/webhook"
 
 func main() {
-	bot, err := tgbotapi.NewBotAPI("7533007583:AAG6nsSfkg6K6d1o2VhCxFMi4eXal2pcGA4")
+	bot, err := tgbotapi.NewBotAPI("YOUR_TG_BOT_TOKEN")
 	if err != nil {
 		log.Fatal(err)
 	}
